@@ -14,27 +14,11 @@ if(!$mysqli) {
 }
 
 list($array, $htmlPages) = paginate($mysqli, $table);
-$av = averageValue($mysqli, $table);
 
 require 'index.html';
-
 exit;
 
-function averageValue($mysqli, $table){
-    $data = $mysqli->query("SELECT val FROM $table");
-    $array = [];
-    while($result = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
-        $array[] = $result;
-    }
-    $count = count($array);
-    $sum = 0;        
-    foreach ($array as $record) { 
-        $record = $record['val']; 
-        $sum = $sum + $record;        
-    }
-    $average = $sum / $count;
-    return $average;
-}
+
 
 function paginate($mysqli, $table){
     $mysqli->set_charset("utf8");
